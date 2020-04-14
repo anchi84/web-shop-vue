@@ -30,4 +30,11 @@
     }
   }
 }
+
+button {
+  margin: 5px 10px;
+  &:hover {
+    cursor: pointer;
+  }
+}
 </style>

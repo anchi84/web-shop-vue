@@ -19,6 +19,11 @@ export default {
   components: {
     Product
   },
+  props: {
+    removedCartProducts: {
+      type: Array
+    }
+  },
   data() {
     return {
       products: items.products
@@ -27,6 +32,22 @@ export default {
   methods: {
     addToCart(product) {
       this.$emit("addToCart", product);
+    }
+  },
+  watch: {
+    removedCartProducts() {
+      this.removedCartProducts.forEach(cartProduct => {
+        this.products.find(
+          product =>
+            product.code == cartProduct.code &&
+            product.subproducts.map(subproduct => {
+              if (subproduct.color == cartProduct.color) {
+                subproduct.addedToCart = false;
+                subproduct.count += cartProduct.pieces;
+              }
+            })
+        );
+      });
     }
   },
   created() {

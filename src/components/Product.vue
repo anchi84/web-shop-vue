@@ -40,21 +40,13 @@ export default {
   },
   data() {
     return {
-      subproducts: null,
-      selectedSubproduct: null
+      subproducts: this.product.subproducts,
+      selectedSubproduct: this.product.subproducts[0]
     };
   },
   methods: {
     selectColor(subproduct) {
       this.selectedSubproduct = subproduct;
-      if (
-        !Object.prototype.hasOwnProperty.call(
-          this.selectedSubproduct,
-          "addedToCart"
-        )
-      ) {
-        this.selectedSubproduct.addedToCart = false;
-      }
       if (!this.selectedSubproduct.addedToCart) {
         this.selectedSubproduct.pieces
           ? this.selectedSubproduct.pieces
@@ -79,7 +71,7 @@ export default {
     },
     addToCart() {
       let cartProduct = {
-        code: this.product.code,
+        code: this.selectedSubproduct.code,
         color: this.selectedSubproduct.color,
         pieces: this.selectedSubproduct.pieces,
         price: this.selectedSubproduct.price
@@ -91,20 +83,22 @@ export default {
           addedToCart: true
         }
       };
-      this.subproducts.find(subproduct => {
-        if (subproduct.color == this.selectedSubproduct.color) {
-          subproduct.pieces = 0;
-          subproduct.addedToCart = true;
-        }
-      });
       this.$emit("addToCart", cartProduct);
     }
   },
+  watch: {
+    selectedSubproduct() {
+      let subprodactIndex = this.subproducts.findIndex(
+        subproduct => subproduct.color == this.selectedSubproduct.color
+      );
+      this.subproducts[subprodactIndex] = this.selectedSubproduct;
+    }
+  },
   created() {
-    this.subproducts = this.product.subproducts;
-    this.selectedSubproduct = this.product.subproducts[0];
+    this.subproducts.forEach(
+      subproduct => (subproduct.code = this.product.code)
+    );
     this.selectedSubproduct.pieces = 0;
-    this.selectedSubproduct.addedToCart = false;
   }
 };
 </script>

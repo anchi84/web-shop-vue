@@ -2,8 +2,16 @@
   <div class="home">
     <img class="logo" alt="web shop logo" src="@/assets/logo.png" />
     <h1>Welcome to car toys web shop</h1>
-    <Products @addToCart="addToCart" />
-    <Cart :products="products" />
+    <Products
+      @addToCart="addToCart"
+      :removedCartProducts="removedCartProducts"
+    />
+    <Cart
+      :cartProducts="cartProducts"
+      @emptyCart="emptyCart"
+      @removeProductFromCart="removeProductFromCart"
+      @submitCart="submitCart"
+    />
   </div>
 </template>
 
@@ -19,21 +27,34 @@ export default {
   },
   data() {
     return {
-      products: []
+      cartProducts: [],
+      removedCartProducts: []
     };
   },
 
   methods: {
     addToCart(product) {
-      let index = this.products.findIndex(
+      this.removedCartProducts = [];
+      let index = this.cartProducts.findIndex(
         item => item.code == product.code && item.color == product.color
       );
 
       if (index != -1) {
-        this.products[index].pieces += product.pieces;
+        this.cartProducts[index].pieces += product.pieces;
       } else {
-        this.products.push(product);
+        this.cartProducts.push(product);
       }
+    },
+    emptyCart() {
+      this.removedCartProducts = this.cartProducts;
+      this.cartProducts = [];
+    },
+    removeProductFromCart(product) {
+      this.removedCartProducts = [];
+      this.removedCartProducts.push(product);
+    },
+    submitCart() {
+      this.cartProducts = [];
     }
   }
 };
