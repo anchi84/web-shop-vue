@@ -24,7 +24,6 @@
           class="add-to-cart"
           @click="addToCart"
           :disabled="selectedSubproduct.pieces == 0"
-          :class="selectedSubproduct.pieces == 0 ? 'disabled' : ''"
         >
           Add to cart
         </button>
@@ -98,16 +97,23 @@ export default {
     this.subproducts.forEach(
       subproduct => (subproduct.code = this.product.code)
     );
-    this.selectedSubproduct.pieces = 0;
+    this.selectedSubproduct.pieces
+      ? this.selectedSubproduct.pieces
+      : (this.selectedSubproduct.pieces = 0);
   }
 };
 </script>
 
 <style scoped lang="scss">
 .product {
-  border: 1px solid purple;
+  box-sizing: border-box;
+  border: 5px inset #c44141;
   margin: 1%;
   min-width: 23%;
+}
+.product-colors {
+  padding: 10px;
+  border-top: 2px solid #c44141;
 }
 .color {
   margin: 10px;
@@ -115,30 +121,19 @@ export default {
   height: 20px;
   border: 1px solid black;
   border-radius: 50%;
-  &:hover {
-    cursor: pointer;
+  &.selected {
+    width: 25px;
+    height: 25px;
   }
-}
-
-.selected {
-  width: 25px;
-  height: 25px;
-}
-.product-colors {
-  padding: 10px;
 }
 .increment,
 .decrement {
-  margin: 0 5px;
-  &:hover {
-    cursor: pointer;
-  }
+  margin: 5px;
 }
 .add-to-cart {
-  width: 50%;
+  width: 100px;
   margin: 10px 0;
-  cursor: pointer;
-  &.disabled {
+  &:disabled {
     cursor: not-allowed;
   }
 }

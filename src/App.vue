@@ -16,25 +16,19 @@
   text-align: center;
   color: #2c3e50;
 }
-
 #nav {
-  padding: 30px;
-
+  padding: 20px;
   a {
     font-weight: bold;
     color: #2c3e50;
     padding: 10px;
-
     &.router-link-exact-active {
-      color: #42b983;
+      color: #c44141;
     }
   }
 }
-
 button {
   margin: 5px 10px;
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 </style>

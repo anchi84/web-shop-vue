@@ -1,11 +1,5 @@
 <template>
-  <div class="about">
+  <div>
     <h1>404 Not found page</h1>
   </div>
 </template>
-
-<script>
-export default {
-  name: "NotFound"
-};
-</script>

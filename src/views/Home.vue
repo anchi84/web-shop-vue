@@ -10,7 +10,6 @@
       :cartProducts="cartProducts"
       @emptyCart="emptyCart"
       @removeProductFromCart="removeProductFromCart"
-      @submitCart="submitCart"
     />
   </div>
 </template>
@@ -52,9 +51,6 @@ export default {
     removeProductFromCart(product) {
       this.removedCartProducts = [];
       this.removedCartProducts.push(product);
-    },
-    submitCart() {
-      this.cartProducts = [];
     }
   }
 };
@@ -62,7 +58,7 @@ export default {
 
 <style scoped>
 .logo {
-  width: 15%;
+  width: 20%;
   margin: 10px;
 }
 </style>

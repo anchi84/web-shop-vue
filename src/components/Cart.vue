@@ -1,6 +1,5 @@
 <template>
   <div id="cart">
-    <p>Cart component</p>
     <img
       class="cart-img"
       alt="Cart"
@@ -24,7 +23,15 @@
           </div>
           <p>Total: {{ total }}$</p>
           <button @click="emptyCart">Empty cart</button>
-          <button @click="submitCart">Submit cart</button>
+          <button>
+            <router-link
+              :to="{
+                name: 'SubmitCart',
+                params: { approvePath: true, cartData: cartProducts }
+              }"
+              >Submit cart</router-link
+            >
+          </button>
         </div>
         <div v-else>
           Your shop cart is so empty!
@@ -70,10 +77,6 @@ export default {
       );
       this.cartProducts.splice(productIndex, 1);
       this.$emit("removeProductFromCart", product);
-    },
-    submitCart() {
-      console.log(this.cartProducts);
-      this.$emit("submitCart");
     }
   },
   computed: {
@@ -90,17 +93,16 @@ export default {
 
 <style scoped lang="scss">
 .cart-img {
-  width: 5%;
+  width: 10%;
+  margin: 10px;
   &:hover {
     cursor: pointer;
   }
 }
-
 .cart-product {
   margin: 10px 0;
   border-bottom: 1px solid #888;
 }
-
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -115,19 +117,17 @@ export default {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
-  border: 3px solid #888;
+  border: 3px solid #c44141;
   width: 80%;
 }
-
 /* The Close Button */
 .close {
-  color: #c01c1c;
+  color: #c44141;
   float: right;
   font-size: 20px;
   font-weight: bold;
@@ -135,5 +135,9 @@ export default {
     color: #000;
     cursor: pointer;
   }
+}
+a {
+  color: #000;
+  text-decoration: none;
 }
 </style>
