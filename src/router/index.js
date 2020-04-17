@@ -45,7 +45,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  // mode: "history", //problem with github
   base: process.env.BASE_URL,
   routes
 });
